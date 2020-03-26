@@ -1,6 +1,6 @@
 const express = require('express')
 const {requireAuth, requireAdmin} = require('../../middlewares/requireAuth.middleware')
-const {getById, query, remove, update, add} = require('./station.controller')
+const {getById, query, remove, update, add, getLabelsMap} = require('./station.controller')
 const router = express.Router()
 
 // middleware that is specific to this router
@@ -9,6 +9,7 @@ const router = express.Router()
 
 
 router.get('/', query)
+router.get('/labels', getLabelsMap)
 router.get('/:id', getById)
 router.put('/:id', update)
 router.post('/', add)

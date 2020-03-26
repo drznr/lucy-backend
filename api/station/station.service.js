@@ -7,7 +7,8 @@ module.exports = {
     getById,
     remove,
     update,
-    add
+    add,
+    getLabelsMap
 }
 
 async function query(filterBy = {}) {
@@ -71,6 +72,24 @@ async function add(station) {
 
 
 
+async function getLabelsMap(){
+    const collection = await dbService.getCollection('station')
+    try {
+        const stations = await collection.find().toArray();
+        var labelsMap = stations.reduce((acc, station) =>{
+            station.labels.forEach(label =>{
+               if (!acc[label]) acc[label] = 0;
+               acc[label]++;
+            })
+            return acc
+        },{})
+        labelsMap = _orderMap(labelsMap)
+        return labelsMap
+    } catch (err) {
+        console.log('ERROR: cannot find Stations')
+        throw err;
+    }
+}
 
 
 
@@ -90,3 +109,10 @@ function _buildCriteria(filterBy) {
     return critirea;
 }
 
+function _orderMap(map){
+    var orderedMap = {};
+    let orderedKeys = Object.keys(map)
+     .sort((a, b) => (map[a] < map[b] ? 1 : -1))
+     .forEach(key => (orderedMap[key] = map[key]));
+     return orderedMap
+}

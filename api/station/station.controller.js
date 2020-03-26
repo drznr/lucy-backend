@@ -37,10 +37,17 @@ async function add(req, res) {
 }
 
 
+async function getLabelsMap(req, res) {
+    const labelsMap = await stationService.getLabelsMap(req.query)
+    res.json(labelsMap)
+}
+
+
 module.exports = {
     getById,
     query,
     remove,
     update,
-    add
+    add,
+    getLabelsMap
 }
