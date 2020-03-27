@@ -49,8 +49,8 @@ async function update(station) {
     station._id = ObjectId(station._id);
     
     try {
-        const savedStation = await collection.replaceOne({ "_id": station._id }, { $set: station })
-        return savedStation
+        await collection.replaceOne({ "_id": station._id }, { $set: station })
+        return station;
     } catch (err) {
         console.log(`ERROR: cannot update station ${station._id}`)
         throw err;
@@ -58,10 +58,10 @@ async function update(station) {
 }
 
 async function add(station) {
-    const collection = await dbService.getCollection('station')
+    const collection = await dbService.getCollection('station');
     try {
-        const savedStation = await collection.insertOne(station);
-        return savedStation;
+        await collection.insertOne(station);  
+        return station;
     } catch (err) {
         console.log(`ERROR: cannot insert station`)
         throw err;

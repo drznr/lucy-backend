@@ -26,13 +26,13 @@ async function update(req, res) {
 
 async function add(req, res) {
     const station = req.body;
-    station.createdAt = Date.now()
-    const user = req.session.user
-    if(user){
+    station.createdAt = Date.now();
+    const user = req.session.user;
+    if (user) {
         station.owner = {_id: user._id, fullName: user.fullName, avatar: user.avatar}
     }
     const savedStation = await stationService.add(station);
-    res.json(savedStation.ops[0]);
+    res.json(savedStation);
 }
 
 
