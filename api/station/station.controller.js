@@ -32,15 +32,9 @@ async function add(req, res) {
         station.owner = {_id: user._id, fullName: user.fullName, avatar: user.avatar}
     }
     const savedStation = await stationService.add(station);
-    console.log('saved station inside controller is: ', savedStation);
     res.json(savedStation.ops[0]);
 }
 
-
-async function getLabelsMap(req, res) {
-    const labelsMap = await stationService.getLabelsMap(req.query)
-    res.json(labelsMap)
-}
 
 
 module.exports = {
@@ -49,5 +43,4 @@ module.exports = {
     remove,
     update,
     add,
-    getLabelsMap
 }
