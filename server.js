@@ -19,11 +19,11 @@ const connectSockets = require('./api/socket/socket.routes')
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'keyboard dogo',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
-}))
+}));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));
